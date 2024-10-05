@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:intl/intl.dart';
 import 'package:weather/secrets.dart';
 
-import 'additional_info_item.dart';
-import 'hourly_forecast_item.dart';
+import '../widgets/additional_info_item.dart';
+import '../widgets/hourly_forecast_item.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -19,31 +19,10 @@ class WeatherScreen extends StatefulWidget {
 class _WeatherScreenState extends State<WeatherScreen> {
   late Future<Map<String, dynamic>> weather;
 
-  Future<Map<String, dynamic>> getCurrentWeather() async {
-    try {
-      String cityName = 'London';
-      final res = await http.get(
-        Uri.parse(
-          'https://api.openweathermap.org/data/2.5/forecast?q=$cityName&APPID=$openWeatherAPIKey',
-        ),
-      );
-
-      final data = jsonDecode(res.body);
-
-      if (data['cod'] != '200') {
-        throw 'An unexpected error occurred';
-      }
-
-      return data;
-    } catch (e) {
-      throw e.toString();
-    }
-  }
-
   @override
   void initState() {
     super.initState();
-    weather = getCurrentWeather();
+    // weather = getCurrentWeather();
   }
 
   @override
@@ -61,7 +40,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
           IconButton(
             onPressed: () {
               setState(() {
-                weather = getCurrentWeather();
+                // weather = getCurrentWeather();
               });
             },
             icon: const Icon(Icons.refresh),
